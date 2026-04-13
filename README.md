@@ -1,42 +1,80 @@
-GitOps-Based Kubernetes Deployment using ArgoCD
-📌 Project Overview
+# 🚀 GitOps-Based Kubernetes Deployment using ArgoCD
 
-This project demonstrates a GitOps workflow for deploying applications on Kubernetes using ArgoCD.
+---
 
-The goal is to eliminate manual deployments and ensure:
+## 📌 Project Overview
 
-All changes are made via Git and automatically applied to Kubernetes.
+This project demonstrates a **GitOps-based CI/CD pipeline** using ArgoCD to deploy applications on Kubernetes.
 
-🏗️ Architecture
+> ✅ No manual `kubectl` changes
+> ✅ All deployments happen via Git
+> ✅ Fully automated and self-healing system
+
+---
+
+## 🏗️ Architecture
+
+```
 Developer → GitHub → ArgoCD → Kubernetes → Application
                           ↓
                     Auto Sync Deployment
-
+```
 <img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/ab8438f7-6a1e-4807-8fed-1ee0cca42a83" />
+---
 
+## 🛠️ Technologies Used
 
-🛠️ Technologies Used
-Docker
-Kubernetes (Minikube)
-ArgoCD
-GitHub
-AWS EC2
+* Docker
+* Kubernetes (Minikube)
+* ArgoCD
+* GitHub
+* AWS EC2
 
-📦 Phase 1: Containerization
-1. Create Dockerfile
+---
+
+## 📦 Phase 1: Containerization
+
+### Dockerfile
+
+```dockerfile
 FROM node:18
 WORKDIR /app
 COPY . .
 RUN npm install
 CMD ["node", "index.js"]
-2. Build Docker Image
+```
+
+---
+
+### Build Docker Image
+
+```bash
 docker build -t kamleshcloud/gitops-app:v1 .
-3. Push to Docker Hub
+```
+
+---
+
+### Push to Docker Hub
+
+```bash
 docker push kamleshcloud/gitops-app:v1
-☸️ Phase 2: Kubernetes Setup
-1. Start Minikube
+```
+
+---
+
+## ☸️ Phase 2: Kubernetes Setup
+
+### Start Minikube
+
+```bash
 minikube start --driver=docker
-2. Deployment YAML
+```
+
+---
+
+### Deployment YAML
+
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -56,7 +94,13 @@ spec:
         image: kamleshcloud/gitops-app:v1
         ports:
         - containerPort: 3000
-3. Service YAML
+```
+
+---
+
+### Service YAML
+
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -69,47 +113,128 @@ spec:
     - port: 80
       targetPort: 3000
       nodePort: 30007
-🔄 Phase 3: ArgoCD Setup
-1. Install ArgoCD
+```
+
+---
+
+## 🔄 Phase 3: ArgoCD Setup
+
+### Install ArgoCD
+
+```bash
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-2. Access ArgoCD UI
+```
+
+---
+
+### Access ArgoCD UI
+
+```bash
 kubectl port-forward svc/argocd-server -n argocd 8080:443 --address 0.0.0.0
-3. Get Admin Password
+```
+
+---
+
+### Get Admin Password
+
+```bash
 kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
-4. Create Application
-Repo: GitHub repository
-Path: .
-Sync Policy: Automatic
-Enable:
-Auto Sync
-Prune
-Self Heal
-🔁 Phase 4: GitOps Workflow
-Update Application Version
-Modify application code
-Build new image:
+```
+
+---
+
+### ArgoCD Application Configuration
+
+* Repository: GitHub repo
+* Path: `.`
+* Revision: `HEAD`
+
+#### Sync Policy:
+
+* ✅ Automatic Sync
+* ✅ Prune Resources
+* ✅ Self Heal
+
+---
+
+## 🔁 Phase 4: GitOps Workflow
+
+### Step 1: Modify Application
+
+Update code and create new version.
+
+---
+
+### Step 2: Build & Push Image
+
+```bash
 docker build -t kamleshcloud/gitops-app:v2 .
 docker push kamleshcloud/gitops-app:v2
-Update deployment.yaml:
+```
+
+---
+
+### Step 3: Update Deployment
+
+```yaml
 image: kamleshcloud/gitops-app:v2
-Push to GitHub:
+```
+
+---
+
+### Step 4: Push to GitHub
+
+```bash
 git add .
 git commit -m "Updated to v2"
 git push
-🎯 Result
-ArgoCD detects change automatically
-Kubernetes deploys new version
-No manual kubectl required
-🌐 Access Application
+```
+
+---
+
+## 🎯 Result
+
+* ArgoCD detects Git changes automatically
+* Kubernetes deploys updated version
+* No manual deployment required
+
+---
+
+## 🌐 Access Application
 
 Using NodePort:
 
+```
 http://<EC2-PUBLIC-IP>:30007
-🧠 GitOps Flow
+```
+
+---
+
+## 🧠 GitOps Flow
+
+```
 Code Change → GitHub → ArgoCD → Kubernetes → Deployment
-✅ Key Features
-Fully automated deployment
-No manual kubectl changes
-Self-healing infrastructure
-Git as single source of truth
+```
+
+---
+
+## ✅ Key Features
+
+* Fully automated deployment
+* No manual `kubectl` usage
+* Self-healing infrastructure
+* Git as single source of truth
+
+---
+
+## 📂 GitHub Repository
+
+```
+https://github.com/<your-username>/gitops-app
+```
+
+---
+
+
+
