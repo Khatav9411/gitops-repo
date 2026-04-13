@@ -11,6 +11,11 @@ All changes are made via Git and automatically applied to Kubernetes.
 Developer → GitHub → ArgoCD → Kubernetes → Application
                           ↓
                     Auto Sync Deployment
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/ab8438f7-6a1e-4807-8fed-1ee0cca42a83" />
+<img width="1536" height="1024" alt="GitOps CI_CD flowchart diagram" src="https://github.com/user-attachments/assets/9a602f4f-b6bd-4741-a174-1d2768583b0b" />
+
+
 🛠️ Technologies Used
 Docker
 Kubernetes (Minikube)
