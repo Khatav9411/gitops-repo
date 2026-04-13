@@ -224,17 +224,7 @@ Code Change → GitHub → ArgoCD → Kubernetes → Deployment
 * Fully automated deployment
 * No manual `kubectl` usage
 * Self-healing infrastructure
-* Git as single source of truth
+* Git as a single source of truth
 
 ---
-
-## 📂 GitHub Repository
-
-```
-https://github.com/<your-username>/gitops-app
-```
-
----
-
-
 
