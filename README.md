@@ -12,7 +12,7 @@ Developer → GitHub → ArgoCD → Kubernetes → Application
                           ↓
                     Auto Sync Deployment
 
-<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/ab8438f7-6a1e-4807-8fed-1ee0cca42a83" />
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/ab8438f7-6a1e-4807-8fed-1ee0cca42a83" />
 
 
 🛠️ Technologies Used
